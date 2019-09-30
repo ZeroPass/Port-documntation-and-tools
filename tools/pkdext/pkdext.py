@@ -8,7 +8,8 @@ from datetime import datetime
 from ldif3 import LDIFParser
 
 sys.path.append(str(Path(os.path.dirname(sys.argv[0])) / Path("../libs/PassID-Server/src")))
-from pymrtd.pki.x509 import Certificate, CscaCertificate, MasterListSignerCertificate
+from pymrtd.pki.x509 import Certificate, CscaCertificate, MasterListSignerCertificate, DocumentSignerCertificate
+from pymrtd.pki.crl import CertificateRevocationList
 from pymrtd.pki.ml import CscaMasterList
 
 from asn1crypto.crl import CertificateList
@@ -157,7 +158,6 @@ def verify_and_extract_masterlist(ml: CscaMasterList, out_dir: Path):
                 print_warning("Failed to verify master list signer C={} Ml-Sig-SerNo={}\n\treason: {}".format(mlsig_cert.subject.native['country_name'],format_cert_sn(mlsig_cert), str(e)))
 
 
-    
 
 
 
@@ -202,17 +202,17 @@ if __name__ == "__main__":
                     )
 
                 # DSC
-                elif 'userCertificate' in entry:
+                elif 'userCertificate;binary' in entry:
                     dn = parse_dn(dn)
-                    dsc = entry['userCertificate'][0]
-                    dsc = Certificate.load(dsc) # TODO: use appropriate dsc class
+                    dsc = entry['userCertificate;binary'][0]
+                    dsc = DocumentSignerCertificate.load(dsc)
                     f = get_ofile_for_dsc(dsc, default_out_dir_dsc / dn['c'] / 'unverified')
                     f.write(dsc.dump())
 
                 # CRL
-                elif 'certificateRevocationList' in entry:
+                elif 'certificateRevocationList;binary' in entry:
                     dn = parse_dn(dn)
-                    crl = entry['certificateRevocationList'][0]
-                    crl = CertificateList.load(crl) # TODO: use appropriate crl class
+                    crl = entry['certificateRevocationList;binary'][0]
+                    crl = CertificateRevocationList.load(crl)
                     f = get_ofile_for_crl(crl, default_out_dir_crl / dn['c'] / 'unverified')
                     f.write(crl.dump())
