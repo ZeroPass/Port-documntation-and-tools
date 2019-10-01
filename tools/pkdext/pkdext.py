@@ -15,16 +15,21 @@ from pymrtd.pki.ml import CscaMasterList
 from asn1crypto.crl import CertificateList
 
 def parse_dn(dn: str):
-    dna = dn.split(',')
     d = {}
-    def insert_e(e):
-        ea = e.split('=')
-        d[ea[0].lower()] = ea[1]
+    dnp = dn.split('+') # split cn from the rest of dn
+    if len(dnp) == 1:
+        dn = dnp[0]
+    elif dnp[0].lower().startswith('cn'):
+        d['cn'] = dnp[0][4:]
+        dn = dnp[1]
+    else:
+        dn = dnp[0]
+        d['cn'] = dnp[1][4:]
 
+    dna = dn.split(',') # split other dn parts
     for e in dna:
-        ea = e.split('+') # elements in dn are sometimes separated with '+' instead of space
-        for e in ea:
-            insert_e(e)
+        ea = e.split('=', 1)
+        d[ea[0].strip('\\').lower()] = ea[1]
     return d
 
 def fatal_error(msg: str):
@@ -41,7 +46,7 @@ def format_cert_fname(cert, baseName = ""):
     if baseName != "":
         baseName = "_" + baseName
 
-    if isinstance(cert, CertificateList):
+    if isinstance(cert, CertificateList) or 'country_name' not in cert.subject.native:
         subject = cert.issuer
         fp = cert.sha256[0:5].hex()
     else:
@@ -206,7 +211,7 @@ if __name__ == "__main__":
                     dn = parse_dn(dn)
                     dsc = entry['userCertificate;binary'][0]
                     dsc = DocumentSignerCertificate.load(dsc)
-                    f = get_ofile_for_dsc(dsc, default_out_dir_dsc / dn['c'] / 'unverified')
+                    f = get_ofile_for_dsc(dsc, default_out_dir_dsc / dn['c'].lower() / 'unverified')
                     f.write(dsc.dump())
 
                 # CRL
@@ -214,5 +219,5 @@ if __name__ == "__main__":
                     dn = parse_dn(dn)
                     crl = entry['certificateRevocationList;binary'][0]
                     crl = CertificateRevocationList.load(crl)
-                    f = get_ofile_for_crl(crl, default_out_dir_crl / dn['c'] / 'unverified')
+                    f = get_ofile_for_crl(crl, default_out_dir_crl / dn['c'].lower() / 'unverified')
                     f.write(crl.dump())
