@@ -6,3 +6,8 @@
 
 # Python
 *.pyc
+
+# Certificates, mls, crls
+*.crl 
+*.cer
+*.ml
