@@ -207,7 +207,7 @@ if __name__ == "__main__":
                     )
 
                 # DSC
-                elif 'userCertificate;binary' in entry:
+                elif 'userCertificate' in entry or 'userCertificate;binary' in entry:
                     dn = parse_dn(dn)
                     dsc = entry['userCertificate;binary'][0]
                     dsc = DocumentSignerCertificate.load(dsc)
@@ -215,7 +215,7 @@ if __name__ == "__main__":
                     f.write(dsc.dump())
 
                 # CRL
-                elif 'certificateRevocationList;binary' in entry:
+                elif 'certificateRevocationList' in entry or 'certificateRevocationList;binary' in entry:
                     dn = parse_dn(dn)
                     crl = entry['certificateRevocationList;binary'][0]
                     crl = CertificateRevocationList.load(crl)
