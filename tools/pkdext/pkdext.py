@@ -60,7 +60,7 @@ def format_cert_fname(cert, baseName = ""):
     return "".join(name.lower().split())
 
 def get_ml_out_dir_name(ml: CscaMasterList):
-    cert = ml.getSignerCertificates()[0]
+    cert = ml.signerCertificates[0]
     name = cert.subject.native['country_name'] + "_ml"
     return name.lower()
 
@@ -115,19 +115,18 @@ def verify_and_write_csca(csca: CscaCertificate, issuing_cert: CscaCertificate, 
                 f.write(csca.dump())
 
 def verify_and_extract_masterlist(ml: CscaMasterList, out_dir: Path):
-
     # verify ml integrity
     try:
         ml.verify()
     except Exception as e:
         print_warning("Integrity verification failed for master list issued by {}."
-                      .format(ml.getSignerCertificates()[0].subject.native['country_name']))
+                      .format(ml.signerCertificates[0].subject.native['country_name']))
         out_dir /= 'unverified_ml'
 
     # verify and extract CSCAs
     cscas = {}
     skipped_cscas = []
-    for csca in ml.getCscaList():
+    for csca in ml.cscaList:
         if csca.key_identifier not in cscas:
             cscas[csca.key_identifier] = csca
 
@@ -152,7 +151,7 @@ def verify_and_extract_masterlist(ml: CscaMasterList, out_dir: Path):
             verify_and_write_csca(csca, issuer_cert, out_dir)
 
     # verify master list signer certificates
-    for mlsig_cert in ml.getSignerCertificates():
+    for mlsig_cert in ml.signerCertificates:
         issuer_cert = get_issuer_cert(mlsig_cert, cscas)
         if issuer_cert is None:
             print_warning("Could not verify signature of master list signer certificate. Issuing CSCA not found! [C={} Ml-Sig-SerNo={}]".format(mlsig_cert.subject.native['country_name'], format_cert_sn(mlsig_cert)))
@@ -188,8 +187,8 @@ if __name__ == "__main__":
 
     with in_file_path.open('rb') as f:
         if in_file_ext == '.ml':
-            cms_bytes = f.read()
-            ml = CscaMasterList(cms_bytes)
+            ml_bytes = f.read()
+            ml = CscaMasterList(ml_bytes)
             verify_and_extract_masterlist(ml, 
                 default_out_dir_csca.joinpath(get_ml_out_dir_name(ml))
             )
