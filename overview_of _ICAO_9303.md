@@ -26,8 +26,7 @@ Document is divided in two sections. First section defines the standard terminol
 | [ISO/IEC 9796-2](http://www.sarm.am/docs/ISO_IEC_9796-2_2002%28E%29-Character_PDF_document.pdf)   | Message recovery digital signature scheme.  |
 | LCSCA   | Linked CSCA. CSCA issued by previous/current CSCA.  |
 | LSRTD  |  Lost, stolen or revoked travel document.  |
-| ML | Master list.<br/><br/>A list of CSCAs from states that the issuing authority of the master list has bilateral agreement with. List also includes CSCA from the issuing authority and is digitally signed by the ML signer of the issuing authority.
-  |
+| ML | Master list.<br/><br/>A list of CSCAs from states that the issuing authority of the master list has bilateral agreement with. List also includes CSCA from the issuing authority and is digitally signed by the ML signer of the issuing authority.|
 | MLSC  | Master list signer certificate.  |
 | MRP  | Machine readable passport (ePassport).  |
 | MRTD  | Machine readable travel document.  |
