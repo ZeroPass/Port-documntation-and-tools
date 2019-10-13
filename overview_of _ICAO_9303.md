@@ -105,3 +105,5 @@ RSASSA-PKCS1_v1.5 and RSASSA-PSS. The standard recommends that issuing authoriti
 * Technical specification of CRL, CSCA, DSC.
 * Technical specification of ML. In brief: ML is unencrypted and signed RFC-3652 cms data structure, containing list of CSCA in the encapsulated content field. 
 * PKI distribution mechanisms to receiving states. It also describes the ICAO’s PKD service.
+![csca](https://github.com/ZeroPass/PassID-documntation-and-tools/blob/master/images/CSCA.png?raw=true)
+
