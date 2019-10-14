@@ -11,7 +11,7 @@ Document is divided in two sections. First section defines the standard terminol
 #### Terminology
 | Keyword   |Definition   |
 | ------------- | ------------- | 
-| AA | Active authentication. A procedure done by IC in order to prevent skimming and | duplicating MRTD.
+| AA | Active authentication. A procedure done by IC in order to prevent skimming and duplicating MRTD. |
 | ASF/SLTD                    |             A database of stolen and lost TDs maintained by Interpol. Note: database is not publically available.|
 |CSCA | Country signing certification authority. Root certificate for eMRTD PKI. Usually it is self issued and signed.|
 |CRL |Certificate revocation list. List of revoked certificates (CSCA, DSC, MLSC etd..). Signed by valid CSCA of issuing authority. CRL is defined in RFC-5280.
@@ -74,7 +74,7 @@ This includes technical specifications of cryptographic protocols to:
  * prevent eavesdropping on the communication between the IC and reader
  * provide passive authentication of the data stored on the IC (section 5, section 8.3, appendix E) based on the PKI described in Part 12. In this process, among others the SOD data structure should be verified against issuing DSC.
  * provide active authentication of the IC itself. 
-In brief: Section 6.1 describes active authentication of eMRTD’s IC by signing 8 bytes challenge sent by the IFD with a private key known only to the IC. 
+In brief: Section 6.1 describes AA of eMRTD’s IC by signing 8 bytes challenge sent by the IFD with a private key known only to the IC. 
 Asymmetric cryptography to sign challenge should be either RSA or ECDSA.
 For worked example see appendix F.
 
