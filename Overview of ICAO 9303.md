@@ -97,8 +97,7 @@ This part also defines:
    * **RSA** - should follow RFC-4055 which defines two signature mechanisms: 
 RSASSA-PKCS1_v1.5 and RSASSA-PSS. The standard recommends that issuing authorities 
                        use the former signature scheme.
-   * **ECDSA** - should follow either ANSI x9.62 (old) or ISO/IEC 15946 standard. In general it is recommended to follow guidelines from TR-03111. In addition, the standard mandates that EC domain parameters to generate 
-   * **ECDSA** key pair must be described explicitly in the parameters of public key, no named curves should be used and must include the optional co-factor. The EC points must be in uncompressed format.
+   * **ECDSA** - should follow either ANSI x9.62 (old) or ISO/IEC 15946 standard. In general it is recommended to follow guidelines from TR-03111. In addition, the standard mandates that EC domain parameters to generate key pair must be described explicitly in the parameters of public key, no named curves should be used and must include the optional co-factor. The EC points must be in uncompressed format.
    * **DSA** - should follow FIPS 186-4
    * **Hashing algorithms**- Only the following algorithms are permitted to be used: Sha-224, Sha-256, Sha-384 and Sha-512.
 
