@@ -78,13 +78,13 @@ In brief: Section 6.1 describes AA of eMRTD’s IC by signing 8 bytes challenge 
 Asymmetric cryptography to sign challenge should be either RSA or ECDSA.
 For worked example see appendix F.
 
- * **RSA**: Should compute signature according to the ISO/IEC 9796-2 digital signature scheme 1.
+   * **RSA**: Should compute signature according to the ISO/IEC 9796-2 digital signature scheme 1.
 For message digest usually Sha-1 is used in signature generation process.
 Other message digest functions that can be used are specified in
 ISO/IEC JTC ; ISO/IEC 10118. The hash function UID of the ISO/IEC 10118
 to be used can range from 0x00 to 0x7f.
 
- * **ECDSA**: For ECC, a plain signature format according to the TR-03111 shall be used.
+   * **ECDSA**: For ECC, a plain signature format according to the TR-03111 shall be used.
 Only prime curve with uncompressed points shall be used.
 
 **Part 12**: Defines technical specification of eMRTD PKI.
