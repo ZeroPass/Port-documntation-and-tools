@@ -79,6 +79,7 @@ Asymmetric cryptography to sign challenge should be either RSA or ECDSA.
 For worked example see appendix F.
 
    * **RSA**: Should compute signature according to the ISO/IEC 9796-2 digital signature scheme 1.
+   Signature opening function should be implemented according to ISO/IEC 9796-2 paragraph B.5 and B.7.
 For message digest usually Sha-1 is used in signature generation process.
 Other message digest functions that can be used are specified in
 ISO/IEC JTC ; ISO/IEC 10118. The hash function UID of the ISO/IEC 10118
