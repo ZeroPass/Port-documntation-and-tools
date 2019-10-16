@@ -6,7 +6,7 @@ Although the ICAO 9303 allows general deviations from the standard conformance (
 ## CSCA Master List
 Examined master lists were from countries: Botswana, Canada, France, Germany, Hungary, Moldova, Spain, Switzerland, Ukraine.
 
-The inspection of master lists showed that signed attributes field stored in the master list is serialized differently than what was used to generate digital signature with. See issue the issue [#1](https://github.com/ZeroPass/PassID-Server/issues/1#issuecomment-536134037) in PassID server repo. This was true for every master list found in ICAO PKD and German PKI. Additionally, the signature verification of Hungarian master list failed and we could not find the reason why. There was also a problem with verifying integrity of the Portuguese CSCA (ser no.: *71c4aa41ac126d13*) because no issuing CSCA was found within any of the master lists.
+The inspection of master lists showed that signed attributes field stored in the master list is serialized differently than what was used to generate digital signature with. See the issue [#1](https://github.com/ZeroPass/PassID-Server/issues/1#issuecomment-536134037) in PassID server repo. This was true for every master list found in ICAO PKD and German PKI. Additionally, the signature verification of Hungarian master list failed and we could not find the reason why. There was also a problem with verifying integrity of the Portuguese CSCA (ser no.: *71c4aa41ac126d13*) because no issuing CSCA was found within any of the master lists.
 
  
 ## CSCA, DSC, CRL
