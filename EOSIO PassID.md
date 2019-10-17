@@ -8,7 +8,7 @@ It has an embedded electronic microprocessor chip that contains biometric inform
 
   
 
-ePassport validation does not require any exchange of the personal data of passport holders.![](https://lh4.googleusercontent.com/eKFrbZYjCDuYA1vLi9fFMc2wYtEDEKN5lfsrbFv3A3DE4n7eVqm15Ku8fx5kL4usihqv4IOPwchwKX5sl-ehW5Bwplbt0qk8-gQ4TjWZhpKUP9BLc-HM8xTkoeDRM8Dt1U4-g9-q)
+ePassport validation does not require any exchange of the personal data of passport holders.![Biometric Passport](https://github.com/ZeroPass/PassID-documntation-and-tools/blob/master/images/biometric_passport.png?raw=true)
 
 Look for the Biometric Passport chip sign
 
@@ -17,7 +17,7 @@ Look for the Biometric Passport chip sign
 ICAO Public Key Directory is a global initiative and deployment of Trust Chain used to issue passports.  
 List of participant countries who [publish their Biometric Passport certificates public](https://www.icao.int/Security/FAL/PKD/Pages/ICAO-PKDParticipants.aspx);
 
-![Biometric Passport](https://github.com/ZeroPass/PassID-documntation-and-tools/blob/master/images/biometric_passport.png?raw=true)
+![Biometric Passport Countries](https://github.com/ZeroPass/PassID-documntation-and-tools/blob/master/images/Biometric_passports_countries.png?raw=true)
 
 The yellow ones (non-participants) can usually be found in the Master List as well, but their revocation lists and DSC lists would have to be downloaded and uploaded from the location they provide.  
   
