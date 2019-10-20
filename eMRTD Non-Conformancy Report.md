@@ -23,3 +23,30 @@ The examination was done on deviation list publically available at ICAO PKD and 
 ## Non-conformant eMRTD elements of IC
 After extracting data (ef.COM, ef.SOD, ef.dg15) from 1 Slovenian passport no issue was found.
 
+
+## [EU eMRTD Interoperability Test 2017](https://ec.europa.eu/jrc/en/publication/eu-emrtd-interoperability-test-2017-final-report)
+There were 18.135 passports tested from the EU and outside the EU.
+
+**Most relevant results for PassID;**
+* Only 28% CSCA certificates follows the standard completly
+* DSA for CSCA: 
+  *	RSA 64%
+  * ECDSA 36%
+* DSA for DSC: 
+  * RSA PKCS#1 v1.5 53% 
+  * RSA SSA PSS 10%  
+  * ECDSA 37% with sha256 70%
+
+**Active Authentication (AA):**
+* 63% of samples had AA enabled
+  * 68% used RSA for DSA
+  * 32% ECDSA for DSA
+* with RSA  the used algoritm was
+  *	71% SHA-1
+  * ~18% SHA-256 
+  *	11% unknown   
+* with ECDSA the used algoritm was 
+  * SHA-1 25% 
+  * SHA-224 12.5% 
+  * SHA-256 37% 
+  * SHA-384 25%
