@@ -50,6 +50,3 @@ There were 18.135 passports tested from the EU and outside the EU.
   * SHA-224 12.5% 
   * SHA-256 37% 
   * SHA-384 25%
-
-#### Algoritms missing from EOSIO WASM intrinsics
-SHA-224, SHA-384, RSA
