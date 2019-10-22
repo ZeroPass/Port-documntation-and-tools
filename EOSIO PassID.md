@@ -170,3 +170,6 @@ The contract first verifies the public key is genuine by looking in the chain da
 In the case of ECC based DSA and ECDSA P-256, no additional implementation is needed since it should already be possible to verify the signature in the contract. Other ECC DSA specified in the BSI TR-03111 (ECGDSA, ECSDSA) are not taken into account here since we were not able to determine if any is used at the time of writing this document.
   
 In the case of RSA DSA, we would need to implement ISO/IEC 9796-2 signature verification scheme along with RSA decryption. RSA decryption could be and probably should be implemented as WASM intrinsic for faster decryption. Also, it can be used for a wide variety of government connected use-cases. Many institutions trust long RSA keys more than elliptic curve cryptography. The ISO/IEC 9796-2 shall be implemented in the contract.
+
+## Algoritms missing from EOSIO WASM intrinsics
+SHA-224, SHA-384, RSA
