@@ -188,7 +188,7 @@ if __name__ == "__main__":
     with in_file_path.open('rb') as f:
         if in_file_ext == '.ml':
             ml_bytes = f.read()
-            ml = CscaMasterList(ml_bytes)
+            ml = CscaMasterList.load(ml_bytes)
             verify_and_extract_masterlist(ml, 
                 default_out_dir_csca.joinpath(get_ml_out_dir_name(ml))
             )
@@ -200,7 +200,7 @@ if __name__ == "__main__":
                 # ML
                 if 'CscaMasterListData' in entry:
                     ml = entry['CscaMasterListData'][0]
-                    ml = CscaMasterList(ml)
+                    ml = CscaMasterList.load(ml)
                     verify_and_extract_masterlist(ml, 
                         default_out_dir_csca.joinpath(get_ml_out_dir_name(ml))
                     )
