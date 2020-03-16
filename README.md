@@ -11,7 +11,11 @@
 * [Public Key Directory Links](https://github.com/ZeroPass/PassID-documntation-and-tools/blob/master/Public%20Key%20Directory%20Links.md "Public Key Directory Links.md")
 * [eMRTD Non-Conformancy Report.md](https://github.com/ZeroPass/PassID-documntation-and-tools/blob/master/eMRTD%20Non-Conformancy%20Report.md "eMRTD Non-Conformancy Report.md")
 
-### PoC Code Repositories
+### PassID Mobile App
+
+* [Android+iOS app (Flutter)](https://github.com/ZeroPass/eosio-passid-mobile-app) 
+
+### (Old) PoC Code Repositories
 
 * [Android app](https://github.com/ZeroPass/PassID-Android-App)
 * [Server](https://github.com/ZeroPass/PassID-Server)
