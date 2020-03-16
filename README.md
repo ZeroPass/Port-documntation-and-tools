@@ -15,8 +15,8 @@
 
 * [Android+iOS app (Flutter)](https://github.com/ZeroPass/eosio-passid-mobile-app) 
 
-### (Old) PoC Code Repositories
-
+### PoC Code Repositories
+* [iOS](https://github.com/ZeroPass/PassID-iOS-App)
 * [Android app](https://github.com/ZeroPass/PassID-Android-App)
 * [Server](https://github.com/ZeroPass/PassID-Server)
 
