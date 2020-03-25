@@ -3,13 +3,15 @@
 A typical user would:  
 • Install the Android/iOS app on a phone (on theirs or someone else's device with NFC)
 
-• Type EOSIO account name that you want to verify
+• Type EOSIO account name that you want to verify, and confirm/change the chain (Providers can generate a magnet link that opens an app pre-fills account name)
 
-• Scan the passport with a camera (that reads the data to establish a secure connection over NFC)
+• Scan the passport with a camera (that reads the data to establish a secure connection over NFC).
 
-• Tap the passport on a phone
+• Tap the passport on a phone.
 
-• Publish the transaction using your account permissions- either on the phone, or optionally, use share capability to send raw data to your desktop (over email, Telegram, WhatsApp, WeChat,...), and use the online portal to publish it from there (by using any [Universal Authenticator Library](https://github.com/EOSIO/universal-authenticator-library) providers)  
+• Publish the transaction for free.
+
+• Go to online portal and use your account permissions to approve the attestation(by using any Universal Authenticator Library providers). The link to portal with the right action pre-filled would be provided in the PassID wallet.  
   
 Your account is now PassID verified, and you can use it like any other EOS account.
 
