@@ -11,7 +11,7 @@ A typical user would:
 
 • Publish the transaction for free.
 
-• Go to online portal and use your account permissions to approve the attestation(by using any Universal Authenticator Library providers). The link to portal with the right action pre-filled would be provided in the PassID wallet.  
+• Go to the online portal and use your account permissions to approve the attestation (by using any [Universal Authenticator Library](https://github.com/EOSIO/universal-authenticator-library) providers). The link to the portal with the right action pre-filled would be provided in the PassID wallet. 
   
 Your account is now PassID verified, and you can use it like any other EOS account.
 
