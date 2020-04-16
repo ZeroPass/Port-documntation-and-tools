@@ -22,3 +22,6 @@
 
 ### Project management
 * [github.com/orgs/ZeroPass/projects/1](https://github.com/orgs/ZeroPass/projects/1)
+
+### Tools
+* [pkdext](tools/pkdext) - python script for extracting CSCA/DSC certificates from masterlist and LDAP files
