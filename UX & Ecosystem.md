@@ -5,7 +5,7 @@ A typical user would:
 
 • Type EOSIO account name that you want to verify, and confirm/change the chain (Providers can generate a magnet link that opens an app pre-fills account name)
 
-• Scan the passport with a camera (that reads the data to establish a secure connection over NFC).
+• Scan the passport with a camera (that reads the data to establish a secure connection over NFC). **not currently implemented. User will need to manually enter passport data**
 
 • Tap the passport on a phone.
 
