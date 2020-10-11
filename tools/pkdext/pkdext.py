@@ -54,9 +54,13 @@ def format_cert_fname(cert, baseName = ""):
         fp = cert.sha256_fingerprint[0:5]
 
     name = subject.native['country_name'] + baseName
-    if 'serial_number' in subject.native:
-        name += "_" + subject.native['serial_number']
-    name += "_" + fp
+    se_no_op = getattr(cert, "serial_number", None)
+    if callable(se_no_op):
+        name += "_" + hex(cert.serial_number)[2:]
+    elif 'tbs_certificate' in cert.native:
+        name += "_" + hex(int(cert.native['tbs_certificate']['serial_number']))[2:]
+    else:
+        name += "_fp_" + fp
     return "".join(name.lower().split())
 
 def get_ml_out_dir_name(ml: CscaMasterList):
