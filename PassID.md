@@ -1,6 +1,6 @@
-# EOSIO PassID
+# PassID
 
- *On-chain ePassport Active Authentication*  
+ *ePassport Active Authentication*  
   
 ## Biometric passport
 
@@ -27,7 +27,7 @@ We need to further investigate what is happening with countries in white, but we
 
 This project aims to;
 
-1.  Provide Android and iOS apps for the end-user to attest their eosio based accounts; Verify the signature in the eosio software (on-chain, in WASM);    
+1.  Provide Android and iOS apps for the end-user to attest their accounts; Verify the signatures in the server-side software;    
 2.  Provide a fully verified path from: 
     1.  Master List Signer (uploads the self- signed lists of other CSCA certificates) 
     2.  CSCA (each country has one)    
@@ -43,15 +43,12 @@ This project aims to;
 # Deliverables
 
   
-1. EOSIO PassID Android app. 
-2. EOSIO PassID iOS app (after iOS13). 
-3. EOSIO PassID Web Portal- for parsing and uploading Master Lists, DSC lists and revocation lists and viewing partial disclosure data.
-4. EOSIO Trust Chain smart contract.
-5. EOSIO Verify PassID smart contract.
-6. Coordination with B1 devs for (WASM intrinsic) RSA decryption.
-7. Further research to cover more and more edge/future cases.
-8. ZeroPass or our friends  can also deploy all apps on stores as well (They are deploying Authenticators on iOS and Chrome with our help).
-    
+1. PassID Android app. 
+2. PassID iOS app (after iOS13). 
+3. PassID Web Portal- for parsing and uploading Master Lists, DSC lists and revocation lists and viewing partial disclosure data.
+4. Trust Chain verification.
+5. Verify Passport signatures.
+6. Further research to cover more and more edge/future cases. 
 
   
 
