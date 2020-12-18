@@ -5,7 +5,7 @@ from pathlib import Path
 from typing import Dict
 from datetime import datetime
 
-from ldif3 import LDIFParser
+from ldif import LDIFParser
 
 sys.path.append(str(Path(os.path.dirname(sys.argv[0])) / Path("../libs/PassID-Server/src")))
 from pymrtd.pki.x509 import Certificate, CscaCertificate, MasterListSignerCertificate, DocumentSignerCertificate
