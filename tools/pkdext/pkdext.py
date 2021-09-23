@@ -1,6 +1,7 @@
 #!/usr/bin/python
 
 import sys, os
+from collections import OrderedDict
 from pathlib import Path
 from typing import Dict
 from datetime import datetime
@@ -13,6 +14,16 @@ from pymrtd.pki.crl import CertificateRevocationList
 from pymrtd.pki.ml import CscaMasterList
 
 from asn1crypto.crl import CertificateList
+from asn1crypto.core import OctetBitString, Sequence, SetOf, PrintableString, Integer
+
+class DocumentTypeList(SetOf):
+    _child_spec = PrintableString
+
+class DocumentTypeListSyntax(Sequence):
+    _fields = [
+        ('version', Integer),
+        ('docTypeList', DocumentTypeList)
+    ]
 
 def parse_dn(dn: str):
     d = {}
@@ -53,14 +64,24 @@ def format_cert_fname(cert, baseName = ""):
         subject = cert.subject
         fp = cert.sha256_fingerprint[0:5]
 
-    name = subject.native['country_name'] + baseName
-    se_no_op = getattr(cert, "serial_number", None)
-    if callable(se_no_op):
-        name += "_" + hex(cert.serial_number)[2:]
-    elif 'tbs_certificate' in cert.native:
-        name += "_" + hex(int(cert.native['tbs_certificate']['serial_number']))[2:]
+    if 'country_name' in subject.native:
+        name = subject.native['country_name'] + baseName
     else:
-        name += "_fp_" + fp
+        name = 'unk_' + subject.human_friendly
+        name = name.replace(' ', '_')
+        name = name.replace(':', '_')
+        name += baseName
+
+    # se_no_op = getattr(cert, "serial_number", None)
+    # if callable(se_no_op):
+    #     name += "_" + hex(cert.serial_number)[2:]
+    try:
+        name += "_" + hex(cert.serial_number)[2:]
+    except:
+        if 'tbs_certificate' in cert.native:
+            name += "_" + hex(int(cert.native['tbs_certificate']['serial_number']))[2:]
+        else:
+            name += "_fp_" + fp
     return "".join(name.lower().split())
 
 def get_ml_out_dir_name(ml: CscaMasterList):
@@ -113,8 +134,11 @@ def verify_and_write_csca(csca: CscaCertificate, issuing_cert: CscaCertificate, 
             with get_ofile_for_csca(csca, out_dir.joinpath('failed_verification')) as f:
                 f.write(csca.dump())
         else:
+            country = 'unk_' + csca.subject.human_friendly
+            if 'country_name' in csca.subject.native:
+                country = csca.subject.native['country_name']
             print_warning("CSCA verification failed! [C={} SerNo={}]\n\treason: {}"
-                          .format(csca.subject.native['country_name'], format_cert_sn(csca), e))
+                          .format(country, format_cert_sn(csca), e))
             with get_ofile_for_csca(csca, out_dir.joinpath('failed_verification')) as f:
                 f.write(csca.dump())
 
@@ -131,8 +155,26 @@ def verify_and_extract_masterlist(ml: CscaMasterList, out_dir: Path):
     cscas = {}
     skipped_cscas = []
     for csca in ml.cscaList:
-        if csca.key_identifier not in cscas:
-            cscas[csca.key_identifier] = csca
+        try:
+            # The the wrap in the try cache was done due to CSCAs from LT
+            # don't encode subject key identifier correctly.
+            # i.e.: KeyIdentifier is defined in RFC 5280 as OCTET STRING within OCTET STRING
+            #      but the problematic certs can encode key id as single OCTET STRING.
+            #       
+            #
+            # Problematic CSCAs:
+            #   C=LT SerNo=275b
+            #   C=LT SerNo=2761
+            #   C=LT SerNo=2748
+
+            if csca.key_identifier not in cscas:
+                cscas[csca.key_identifier] = csca
+        except Exception as e:
+            print_warning("An exception was encountered while trying to get keyID of CSCA C={} SerNo={}"
+                .format(csca.subject.native['country_name'], format_cert_sn(csca)))
+            with get_ofile_for_csca(csca, out_dir.joinpath('parse_error')) as f:
+                f.write(csca.dump())
+            continue
 
         if csca.self_signed != 'maybe':
             if csca.authority_key_identifier not in cscas:
@@ -193,7 +235,7 @@ if __name__ == "__main__":
         if in_file_ext == '.ml':
             ml_bytes = f.read()
             ml = CscaMasterList.load(ml_bytes)
-            verify_and_extract_masterlist(ml, 
+            verify_and_extract_masterlist(ml,
                 default_out_dir_csca.joinpath(get_ml_out_dir_name(ml))
             )
         else:
@@ -205,7 +247,7 @@ if __name__ == "__main__":
                 if 'CscaMasterListData' in entry:
                     ml = entry['CscaMasterListData'][0]
                     ml = CscaMasterList.load(ml)
-                    verify_and_extract_masterlist(ml, 
+                    verify_and_extract_masterlist(ml,
                         default_out_dir_csca.joinpath(get_ml_out_dir_name(ml))
                     )
 
@@ -214,6 +256,20 @@ if __name__ == "__main__":
                     dn = parse_dn(dn)
                     dsc = entry['userCertificate;binary'][0]
                     dsc = DocumentSignerCertificate.load(dsc)
+                    for e in dsc.native['tbs_certificate']['extensions']:
+                        if e['extn_id'] == '2.23.136.1.1.6.2':
+
+                            dtl = DocumentTypeListSyntax.load(bytes(e['extn_value']))
+                            #print(bytes(e['extn_value']).hex())
+                            fdtl= open("dsc_doc_type_lists.txt","a")
+                            fdtl.write("issuer: " + dsc.issuerCountry + "\n")
+                            fdtl.write("ser: " + hex(int(dsc.native['tbs_certificate']['serial_number']))[2:] + "\n")
+                            try:
+                                fdtl.write("  " + str(dtl.native['docTypeList']) + "\n")
+                            except Exception as aaaa:
+                                fdtl.write("  " +  bytes(e['extn_value']).hex() + "\n")
+                                fdtl.write("  " +  str(dtl) + "\n")
+                            fdtl.flush()
                     f = get_ofile_for_dsc(dsc, default_out_dir_dsc / dn['c'].lower() / 'unverified')
                     f.write(dsc.dump())
 
